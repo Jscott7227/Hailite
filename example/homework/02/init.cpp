@@ -8,9 +8,14 @@ int main(int argc, char* argv[]) {
   {
   // set n and m, you can change these values
   int n,m = 16;
-  // Make View
+  Kokkos::View<int*> A("A", n, m);
   
-  // set values to 1000 * i * j;
+  Kokkos::parallel_for("Loop1", A.extent(0), KOKKOS_LAMBDA (const int i) {
+		Kokkos::parallel_for("Loop2", A.extent(1), KOKKOS_LAMBDA (const int j) {
+		  
+		  A(i, j) = 1000*i*j;
+    });
+	  });
   }
   Kokkos::finalize();
 }
