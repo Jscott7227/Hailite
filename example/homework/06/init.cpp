@@ -1,5 +1,6 @@
 #include <Kokkos_Core.hpp>
 #include <cstdio>
+#include <iostream>
 
 // Create a program that does matrix addition between a 2D View and a 1D View with at least one loop of parallelism.
 // For a test case:
@@ -9,50 +10,52 @@
 // Extra credit: make a function and check for correct shape/dimensions
 bool checkDim(int col2d, int col1d)
 {
-  return (col2d == col1d) 
+  return (col2d == col1d); 
 }
 
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
-    int row2d, col2d, col1d
+    int row2d, col2d, col1d, temp;
     do{
         std::cout << " Enter the number of rows for the 2d view: ";
-	      std::cin >> row2d;
-	      std::cout << std::endl << " Enter the number of columns for the 2d view: ";
-	      std::cout << std::endl << " Enter the number of rows for the 1d view: ";
-        std::cin >> numRowsVector;
+	std::cin >> row2d;
+	std::cout << std::endl << " Enter the number of columns for the 2d view: ";
+	std::cin >> col2d;
+	std::cout << std::endl << " Enter the number of colums for the 1d view: ";
+        std::cin >> col1d;
         std::cout << std::endl;
 
-    }while(checkDim(col2d, col1d))
+    }while(!checkDim(col2d, col1d));
 
     // Make View and add values
-    Kokkos::View<int**> A("1D", col1d);
+    Kokkos::View<int*> A("1D", col1d);
     
     for (int i = 0; i < col1d; i++) {
       std::cout << " Enter the value for the 1d view at " << i << " ";
-	    std::cin >> A(i);
+      	
+	std::cin >> A[i];
   }
 
-    Kokkos::View<int*>B("2D", col2d, row2d)
+    Kokkos::View<int**>B("2D", col2d, row2d);
     for (int i = 0; i < col2d; i++) {
-      for (int i = 0; i < row2d; i++) {
-        std::cout << " Enter the value for the 2d view at col " << i << " row " << j << " ";
-	      std::cin >> B(i,j);
+      for (int j = 0; j < row2d; j++) {
+        std::cout << " Enter the value for the 2d view at row " << i << " col " << j << " ";
+      std::cin >> B(i,j);
   }}
 
 
-    Kokkos::View<int**>C("Sum", col2d, row2d)
+    Kokkos::View<int**>C("Sum", col2d, row2d);
 
 
   
   // Do a matrix add
-  Kokkos::parallel_for("Loop1", A.extent(0), KOKKOS_LAMBDA (const int i) {
-	Kokkos::parallel_for("Loop2", A.extent(1), KOKKOS_LAMBDA (const int j) {
+  Kokkos::parallel_for("Loop1", B.extent(0), KOKKOS_LAMBDA (const int i) {
+	Kokkos::parallel_for("Loop2", B.extent(1), KOKKOS_LAMBDA (const int j) {
 		  
-		C(i, j) = B(i,j) + A(i);
+		C(i, j) = B(i,j) + A(j);
     
-  });
+	});
 	});
 
   // Output addition 
@@ -64,6 +67,8 @@ int main(int argc, char* argv[]) {
     }
 
 		std::cout << std::endl;
+  
+   }
   }
   Kokkos::finalize();
-}
+  }
