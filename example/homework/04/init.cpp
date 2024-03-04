@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
   int n = 16;
   Kokkos::View<int*> A("A", n);
   
+  //Asign view with random values
   Kokkos::parallel_for("Loop1", A.extent(0), KOKKOS_LAMBDA (const int i) {
 
 		A(i) = (rand() % (1000 - 0 + 1))*i;
