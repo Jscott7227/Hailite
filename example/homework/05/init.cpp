@@ -1,5 +1,6 @@
 #include <Kokkos_Core.hpp>
 #include <cstdio>
+#include <cstdlib>
 
 // Create a program that compares a parallel for loop and a standard for loop for summing rows of a View with Kokkos Timer.
 
