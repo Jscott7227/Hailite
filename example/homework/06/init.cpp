@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
     }while(checkDim(col2d, col1d))
 
     // Make View and add values
-    Kokkos::View<int*> A("1D", col1d);
+    Kokkos::View<int**> A("1D", col1d);
     
     for (int i = 0; i < col1d; i++) {
       std::cout << " Enter the value for the 1d view at " << i << " ";
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
   }}
 
 
-    Kokkos::View<int*>C("Sum", col2d, row2d)
+    Kokkos::View<int**>C("Sum", col2d, row2d)
 
 
   
@@ -60,9 +60,9 @@ int main(int argc, char* argv[]) {
 
     for(int j = 0 ; j < row2d; j++){
 
-      std::cout << "   " << C(i,j);
+      std::cout << " " << C(i,j);
     }
-    
+
 		std::cout << std::endl;
   }
   Kokkos::finalize();
