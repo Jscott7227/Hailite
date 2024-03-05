@@ -10,12 +10,14 @@
 // Extra credit: make a function and check for correct shape/dimensions
 bool checkDim(int col2d, int col1d)
 {
+  //Checks if addition is valid
   return (col2d == col1d); 
 }
 
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
+    //Loop to assign proper dimensions
     int row2d, col2d, col1d, temp;
     do{
         std::cout << " Enter the number of rows for the 2d view: ";
@@ -28,7 +30,7 @@ int main(int argc, char* argv[]) {
 
     }while(!checkDim(col2d, col1d));
 
-    // Make View and add values
+    // 1D view
     Kokkos::View<int*> A("1D", col1d);
     
     for (int i = 0; i < col1d; i++) {
@@ -36,7 +38,7 @@ int main(int argc, char* argv[]) {
       	
 	std::cin >> A[i];
   }
-
+    //2D view
     Kokkos::View<int**>B("2D", col2d, row2d);
     for (int i = 0; i < col2d; i++) {
       for (int j = 0; j < row2d; j++) {
@@ -44,7 +46,7 @@ int main(int argc, char* argv[]) {
       std::cin >> B(i,j);
   }}
 
-
+    //View to hold sum
     Kokkos::View<int**>C("Sum", col2d, row2d);
 
 

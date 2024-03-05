@@ -7,10 +7,10 @@
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
-  // Make View
+  // Make View Labeled Label
   Kokkos::View<int*> A("Label", 10);
   
-  //Print label of the view
+  //Print label of the view 
   std::cout << "The label of A is " << A.label() << std::endl;
   }
   Kokkos::finalize();

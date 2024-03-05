@@ -2,12 +2,16 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <time.h>
 
 // Create a program that compares a parallel for loop and a standard for loop for summing rows of a View with Kokkos Timer.
 
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
+
+  // Seed rand
+  srand(time(NULL));
 
   // Make View and create values
   int n = 16;
@@ -17,6 +21,8 @@ int main(int argc, char* argv[]) {
 
 		A(i) = (rand() % (1000 - 0 + 1))*i;
     });
+
+  //Create view to hold sum
   Kokkos::View<int*> parallel_sum("Sum",1)
   //Create Timer time starts here
   Kokkos::Timer timer;
@@ -29,6 +35,7 @@ int main(int argc, char* argv[]) {
     }) ;
   
   double parallel_time = timer.seconds();
+
   //Reset Timer 
   timer.reset();
 
@@ -38,6 +45,7 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < n; i++) {
     serial_sum += A(i);
   }
+
 
   double serial_time = timer.seconds();
   timer.reset();

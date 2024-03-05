@@ -9,6 +9,8 @@
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
+  
+  // Seed rand 
   srand(time(NULL));
 
   // Make View and create values

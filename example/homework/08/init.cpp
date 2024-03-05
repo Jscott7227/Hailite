@@ -10,6 +10,7 @@
 
 bool checkDim(int col2d, int row1d)
 {
+  //Checks if multiplication is valid
   return (col2d == row1d); 
 }
 
@@ -17,7 +18,7 @@ bool checkDim(int col2d, int row1d)
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
-  // Make View and add values
+  // Loop for valid dimensions
   int row2d, col2d, row1d;
     do{
         std::cout << " Enter the number of rows for the 2d view: ";
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]) {
 
     }while(!checkDim(col2d, row1d));
 
-    // Make View and add values
+    // 1D View
     Kokkos::View<int*> A("1D", row1d);
     
     for (int i = 0; i < row1d; i++) {
@@ -38,6 +39,7 @@ int main(int argc, char* argv[]) {
 	    std::cin >> A(i);
   }
 
+    //2D view
     Kokkos::View<int**>B("2D", col2d, row2d);
     for (int i = 0; i < row2d; i++) {
       for (int j = 0; j < col2d; j++) {
@@ -45,7 +47,10 @@ int main(int argc, char* argv[]) {
 	      std::cin >> B(i,j);
   }}
 
-  Kokkos::View<int*>C("Result", row2d);  
+  //Result view
+  Kokkos::View<int*>C("Result", row2d); 
+
+
   // Do a matrix multiply
   Kokkos::parallel_for("Loop i", col2d, KOKKOS_LAMBDA(const int i)  {
     Kokkos::parallel_for("Loop j", row1d, KOKKOS_LAMBDA(const int j)  {

@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
-  // set n and m, you can change these values
+  // set n and m to 16
   int n,m = 16;
   Kokkos::View<int**> A("A", n, m);
   

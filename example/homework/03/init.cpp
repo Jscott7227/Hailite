@@ -7,11 +7,13 @@
 int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
   {
+  
+  // Set n to 30
   int n = 30; 
   // Make View
   Kokkos::View<int****> A("name", 5, 7, 12, n);
   
-  // print name
+  // Print name
   std::cout << "The label of A is " << A.label() << std::endl;
   
   }
