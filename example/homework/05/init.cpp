@@ -23,10 +23,9 @@ int main(int argc, char* argv[]) {
     });
 
   //Create view to hold sum
-  Kokkos::View<int*> parallel_sum("Sum",1)
+  Kokkos::View<int*> parallel_sum("Sum",1);
   //Create Timer time starts here
   Kokkos::Timer timer;
-
 
   // Parallel Sum  
   Kokkos::parallel_for("Loop1", A.extent(0), KOKKOS_LAMBDA (const int i) {
