@@ -1,4 +1,4 @@
-Halite Strategy Bot – Rule-Based AI Agent for Two Sigma's Halite Game
+# Halite Strategy Bot – Rule-Based AI Agent for Two Sigma's Halite Game
 This repository contains a rule-based AI agent developed for Halite by Two Sigma – a competitive resource management game where players control fleets of ships to collect halite, build shipyards, and outmaneuver opponents.
 
 The agent uses rule-based inferencing to make strategic decisions, relying on deterministic logic to optimize ship movement, halite collection, and shipyard placement. It emphasizes simplicity, clarity, and reliable performance across diverse match conditions.
